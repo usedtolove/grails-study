@@ -16,5 +16,6 @@
 *.ear
 
 # grails #
-**/build/*
+**/build
+**/.gradle
 
