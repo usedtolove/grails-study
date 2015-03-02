@@ -1,0 +1,5 @@
+Groovy 是21世纪的java语言
+Grails 是java中的Ruby on rails
+Grails 是COC的
+Grails3 原生支持gradle （兼备ant的灵活性和maven的规范性）
+GSP 常用片断提取的片段模板（partial template）遵循 DRY
