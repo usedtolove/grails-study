@@ -1,4 +1,3 @@
-com.tz
 <!doctype html>
 <html>
     <head>

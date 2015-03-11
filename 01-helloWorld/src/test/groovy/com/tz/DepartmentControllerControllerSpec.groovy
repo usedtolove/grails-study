@@ -5,9 +5,9 @@ package com.tz
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(DepartmentController)
-@Mock(Department)
-class DepartmentControllerSpec extends Specification {
+@TestFor(DepartmentControllerController)
+@Mock(DepartmentController)
+class DepartmentControllerControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -21,8 +21,8 @@ class DepartmentControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.departmentList
-            model.departmentCount == 0
+            !model.departmentControllerList
+            model.departmentControllerCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class DepartmentControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.department!= null
+            model.departmentController!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -38,25 +38,25 @@ class DepartmentControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def department = new Department()
-            department.validate()
-            controller.save(department)
+            def departmentController = new DepartmentController()
+            departmentController.validate()
+            controller.save(departmentController)
 
         then:"The create view is rendered again with the correct model"
-            model.department!= null
+            model.departmentController!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            department = new Department(params)
+            departmentController = new DepartmentController(params)
 
-            controller.save(department)
+            controller.save(departmentController)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/department/show/1'
+            response.redirectedUrl == '/departmentController/show/1'
             controller.flash.message != null
-            Department.count() == 1
+            DepartmentController.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -68,11 +68,11 @@ class DepartmentControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def department = new Department(params)
-            controller.show(department)
+            def departmentController = new DepartmentController(params)
+            controller.show(departmentController)
 
         then:"A model is populated containing the domain instance"
-            model.department == department
+            model.departmentController == departmentController
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -84,11 +84,11 @@ class DepartmentControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def department = new Department(params)
-            controller.edit(department)
+            def departmentController = new DepartmentController(params)
+            controller.edit(departmentController)
 
         then:"A model is populated containing the domain instance"
-            model.department == department
+            model.departmentController == departmentController
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -98,28 +98,28 @@ class DepartmentControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/department/index'
+            response.redirectedUrl == '/departmentController/index'
             flash.message != null
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def department = new Department()
-            department.validate()
-            controller.update(department)
+            def departmentController = new DepartmentController()
+            departmentController.validate()
+            controller.update(departmentController)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.department == department
+            model.departmentController == departmentController
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            department = new Department(params).save(flush: true)
-            controller.update(department)
+            departmentController = new DepartmentController(params).save(flush: true)
+            controller.update(departmentController)
 
         then:"A redirect is issued to the show action"
-            department != null
-            response.redirectedUrl == "/department/show/$department.id"
+            departmentController != null
+            response.redirectedUrl == "/departmentController/show/$departmentController.id"
             flash.message != null
     }
 
@@ -130,23 +130,23 @@ class DepartmentControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/department/index'
+            response.redirectedUrl == '/departmentController/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def department = new Department(params).save(flush: true)
+            def departmentController = new DepartmentController(params).save(flush: true)
 
         then:"It exists"
-            Department.count() == 1
+            DepartmentController.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(department)
+            controller.delete(departmentController)
 
         then:"The instance is deleted"
-            Department.count() == 0
-            response.redirectedUrl == '/department/index'
+            DepartmentController.count() == 0
+            response.redirectedUrl == '/departmentController/index'
             flash.message != null
     }
 }
